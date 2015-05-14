@@ -1,0 +1,66 @@
+---
+title       : Developing Data Products - Course Project
+subtitle    : Email - Spam or NonSpam
+author      : Nami
+job         : Lecturer
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## Introduction
+
+This assignment uses data from Spam E-mail Detabase collected at Hewlett-Packard Labs, that classifies 4601 e-mails as spam or non-spam. 
+In addition to this class label there are 57 variables indicating the frequency of certain words and characters in the e-mail. 
+
+This shiny apps allows you to enter the frequency of some variables to predict if the mail is either "nonspam" or "spam".
+
+--- .class #id 
+
+## Data
+
+The first 48 variables contain the frequency of the variable name (e.g., business) in the e-mail. If the variable name starts with num (e.g., num650) the it indicates the frequency of the corresponding number (e.g., 650). 
+The variables 49-54 indicate the frequency of the characters ';', '(', '[', '!', '\$', and '#'. The variables 55-57 contain the average, longest and total run-length of capital letters. Variable 58 indicates the type of the mail and is either "nonspam" or "spam", i.e. unsolicited commercial e-mail.
+
+--- 
+
+## Classification Tree
+Use the classification tree to find what variables can be used to determine the type of email (nonspam or spam).
+
+```{r, echo=FALSE}
+library(kernlab)
+library(lattice)
+library(ggplot2)
+library(rpart)
+
+data("spam")
+index <- 1:nrow(spam)
+
+set.seed(313)
+
+testindex <- sample(index, trunc(length(index)/3))
+testset <- spam[testindex,]
+trainingset <- spam[-testindex,]
+
+model.rpart <- rpart(type ~ ., method = "class", data = trainingset)
+
+library(rattle)
+plot(model.rpart, uniform = TRUE, main = "Classification (RPART). Classification Tree for SPAM")
+text(model.rpart, all = TRUE, cex = 0.75)
+
+```
+
+--- 
+
+## Predicting with Support Vector Machines model
+Produce SVM model using the svm function. The SVM model is 90% accurate on the training data.
+```{r echo=FALSE}
+library(e1071)
+model <- svm(type ~ ., data = trainingset, 
+method = "C-classification", kernel = "radial", cost = 10, gamma = 0.1)
+pred <- predict(model, testset)
+library(caret)
+confusionMatrix(pred,testset$type)
+```

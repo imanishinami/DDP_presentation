@@ -1,1 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Developing Data Products - Course Project</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Developing Data Products - Course Project">
+  <meta name="author" content="Nami">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
 
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Developing Data Products - Course Project</h1>
+    <h2>Email - Spam or NonSpam</h2>
+    <p>Nami<br/>Lecturer</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Introduction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>This assignment uses data from Spam E-mail Detabase collected at Hewlett-Packard Labs, that classifies 4601 e-mails as spam or non-spam. 
+In addition to this class label there are 57 variables indicating the frequency of certain words and characters in the e-mail. </p>
+
+<p>This shiny apps allows you to enter the frequency of some variables to predict if the mail is either &quot;nonspam&quot; or &quot;spam&quot;.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The first 48 variables contain the frequency of the variable name (e.g., business) in the e-mail. If the variable name starts with num (e.g., num650) the it indicates the frequency of the corresponding number (e.g., 650). 
+The variables 49-54 indicate the frequency of the characters &#39;;&#39;, &#39;(&#39;, &#39;[&#39;, &#39;!&#39;, &#39;$&#39;, and &#39;#&#39;. The variables 55-57 contain the average, longest and total run-length of capital letters. Variable 58 indicates the type of the mail and is either &quot;nonspam&quot; or &quot;spam&quot;, i.e. unsolicited commercial e-mail.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Classification Tree</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Use the classification tree to find what variables can be used to determine the type of email (nonspam or spam).</p>
+
+<pre><code>## Rattle: A free graphical interface for data mining with R.
+## Version 3.4.1 Copyright (c) 2006-2014 Togaware Pty Ltd.
+## Type &#39;rattle()&#39; to shake, rattle, and roll your data.
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-1-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Predicting with Support Vector Machines model</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Produce SVM model using the svm function. The SVM model is 90% accurate on the training data.</p>
+
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction nonspam spam
+##    nonspam     892  108
+##    spam         39  494
+##                                           
+##                Accuracy : 0.9041          
+##                  95% CI : (0.8883, 0.9184)
+##     No Information Rate : 0.6073          
+##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
+##                                           
+##                   Kappa : 0.7948          
+##  Mcnemar&#39;s Test P-Value : 2.04e-08        
+##                                           
+##             Sensitivity : 0.9581          
+##             Specificity : 0.8206          
+##          Pos Pred Value : 0.8920          
+##          Neg Pred Value : 0.9268          
+##              Prevalence : 0.6073          
+##          Detection Rate : 0.5819          
+##    Detection Prevalence : 0.6523          
+##       Balanced Accuracy : 0.8894          
+##                                           
+##        &#39;Positive&#39; Class : nonspam         
+## 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Introduction'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Data'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Classification Tree'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Predicting with Support Vector Machines model'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
